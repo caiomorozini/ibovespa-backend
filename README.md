@@ -1,0 +1,2 @@
+# ibovespa-backend
+Microserviço fastapi
