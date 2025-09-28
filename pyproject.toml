@@ -1,0 +1,20 @@
+[project]
+name = "ibovespa-backend"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Caio",email = "caiomorozini@outlook.com.br"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi (>=0.117.1,<0.118.0)",
+    "pydantic-settings (>=2.11.0,<3.0.0)",
+    "passlib (>=1.7.4,<2.0.0)",
+    "sqlalchemy (>=2.0.43,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
