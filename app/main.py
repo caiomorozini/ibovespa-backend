@@ -1,11 +1,15 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from app.database.first_migration import create_first_user
 from app.database import db
 from app.models import User
+from app.services.auth import authenticate_user
 from app.dependencies.authentication import get_current_active_user
+
+from app.routes.auth import router as auth_router
 
 app = FastAPI(
     title="Ibovespa API",
@@ -26,7 +30,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Exemplo: buscar usuários
+app.include_router(auth_router)
+
 @app.get("/users")
 async def list_users(session: AsyncSession = Depends(db.get_session)):
     result = await session.execute(select(User))
@@ -35,6 +40,6 @@ async def list_users(session: AsyncSession = Depends(db.get_session)):
 
 
 # Teste de autenticação
-@app.get("/me", dependencies=[Depends(get_current_active_user)])
-async def read_users_me(current_user: User = Depends(db.get_session)):
+@app.get("/me")
+async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
