@@ -1,0 +1,22 @@
+
+services:
+  postgresql:
+    image: postgres:alpine
+    container_name: ibovespa-postgres
+    environment:
+      - POSTGRES_DB=ibovespa_dev
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5432:5432
+    volumes:
+      - ibovespa_psql:/var/lib/postgresql/data
+    networks:
+      - ibovespa-network
+
+networks:
+  ibovespa-network:
+    driver: bridge
+
+volumes:
+  ibovespa_psql:
