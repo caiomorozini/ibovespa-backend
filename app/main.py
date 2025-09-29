@@ -5,6 +5,7 @@ from sqlalchemy import select
 from app.database.first_migration import create_first_user
 from app.database import db
 from app.models import User
+from app.dependencies.authentication import get_current_active_user
 
 app = FastAPI(
     title="Ibovespa API",
@@ -12,6 +13,7 @@ app = FastAPI(
     description="API para ",
     on_startup=[db.startup, create_first_user],
     on_shutdown=[db.shutdown],
+
 )
 
 origins = ["*"]
@@ -30,3 +32,9 @@ async def list_users(session: AsyncSession = Depends(db.get_session)):
     result = await session.execute(select(User))
     users = result.scalars().all()
     return users
+
+
+# Teste de autenticação
+@app.get("/me", dependencies=[Depends(get_current_active_user)])
+async def read_users_me(current_user: User = Depends(db.get_session)):
+    return current_user
