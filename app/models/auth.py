@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, TIMESTAMP, Boolean, ForeignKey, text
-from sqlalchemy.orm import declarative_base, relationship
-
-Base = declarative_base()
+from sqlalchemy.orm import relationship
+from app.models.base import Base
 
 
 class Role(Base):

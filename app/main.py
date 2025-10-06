@@ -8,16 +8,14 @@ from app.database import db
 from app.models import User
 from app.services.auth import authenticate_user
 from app.dependencies.authentication import get_current_active_user
-
 from app.routes.auth import router as auth_router
 
 app = FastAPI(
-    title="Ibovespa API",
+    title="Celular",
     version="0.1",
-    description="API para ",
+    description="API para dados de celulares",
     on_startup=[db.startup, create_first_user],
     on_shutdown=[db.shutdown],
-
 )
 
 origins = ["*"]
@@ -31,6 +29,14 @@ app.add_middleware(
 )
 
 app.include_router(auth_router)
+app.include_router(
+    prefix="/api/v1/data",
+    router=__import__("app.routes.data", fromlist=["router"]).router,
+)
+app.include_router(
+    prefix="/api/v1/categories",
+    router=__import__("app.routes.categories", fromlist=["router"]).router,
+)
 
 @app.get("/users")
 async def list_users(session: AsyncSession = Depends(db.get_session)):
