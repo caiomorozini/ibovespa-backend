@@ -38,6 +38,10 @@ app.include_router(
     router=__import__("app.routes.categories", fromlist=["router"]).router,
 )
 
+app.include_router(
+    prefix="/api/v1/modelo",
+    router=__import__("app.routes.modelo", fromlist=["router"]).router,
+)
 @app.get("/users")
 async def list_users(session: AsyncSession = Depends(db.get_session)):
     result = await session.execute(select(User))

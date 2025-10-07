@@ -27,6 +27,8 @@ class Item(BaseModel):
     camera_megapixel: Optional[str] = ""
     camera_resolucao: Optional[str] = ""
     resistencia_agua: Optional[str] = ""
+    preco_medio: Optional[float] = None
+    precos: List[str] = []
 
 class Register(BaseModel):
     name: constr(min_length=1, max_length=100, strip_whitespace=True, to_lower=True) # type: ignore
