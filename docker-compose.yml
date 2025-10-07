@@ -2,21 +2,21 @@
 services:
   postgresql:
     image: postgres:alpine
-    container_name: ibovespa-postgres
+    container_name: melhorpreco-postgres
     environment:
-      - POSTGRES_DB=ibovespa_dev
+      - POSTGRES_DB=melhorpreco_dev
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     ports:
       - 5432:5432
     volumes:
-      - ibovespa_psql:/var/lib/postgresql/data
+      - melhorpreco_psql:/var/lib/postgresql/data
     networks:
-      - ibovespa-network
+      - melhorpreco-network
 
 networks:
-  ibovespa-network:
+  melhorpreco-network:
     driver: bridge
 
 volumes:
-  ibovespa_psql:
+  melhorpreco_psql:
