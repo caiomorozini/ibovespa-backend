@@ -1,10 +1,10 @@
-# ibovespa-backend
+# melhorpreco-backend
 
 Microserviço FastAPI para ingestão, armazenamento e predição de preços de dispositivos (celulares).
 
 ## Visão geral
 
-O `ibovespa-backend` é um serviço escrito em Python/FastAPI que expõe endpoints para:
+O `melhorpreco-backend` é um serviço escrito em Python/FastAPI que expõe endpoints para:
 
 - Autenticação (OAuth2 password flow + JWT)
 - CRUD/ingestão de registros (categorias, registros, preços)
@@ -55,7 +55,7 @@ Exemplo mínimo `.env`:
 ```
 database_hostname=localhost
 database_port=5432
-database_name=ibovespa_dev
+database_name=melhorpreco_dev
 database_username=admin
 database_password=admin
 jwt_secret_key=uma_chave_secreta
@@ -84,8 +84,8 @@ poetry run uvicorn app.main:app --reload
 docker compose up -d postgresql
 
 # constrói e roda o container da aplicação
-docker build -t ibovespa-backend .
-docker run --env-file .env --network host --name ibovespa-backend -p 8000:8000 ibovespa-backend
+docker build -t melhorpreco-backend .
+docker run --env-file .env --network host --name melhorpreco-backend -p 8000:8000 melhorpreco-backend
 ```
 
 3) Usando `docker-compose` completo (pode adicionar serviço da aplicação ao compose):
